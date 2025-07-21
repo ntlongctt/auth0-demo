@@ -1,0 +1,9 @@
+{
+  "domain": "dev-simplifi.us.auth0.com",
+  "clientId": "nh0TWfLIdvSa3XTjVzmDpmffeBwIJjKr",
+  "audience": "simplifi-web",
+  "appOrigin": "http://localhost:3000",
+  "apiOrigin": "http://localhost:3001",
+  "redirectUri": "https://dev-oauth.proxy.simplifi.io/api/v2/oauth/oidc/callback",
+  "connection": "Wesco"
+}
