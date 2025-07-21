@@ -62,10 +62,6 @@ export default function Home() {
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
                 Welcome to Auth0 Demo! 🔐
               </h1>
-              <p className="text-gray-600 mb-6">
-                This application demonstrates Auth0 integration with React
-                Router v7. Please log in to access authenticated features.
-              </p>
 
               <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
                 <h3 className="text-sm font-medium text-blue-800 mb-2">
