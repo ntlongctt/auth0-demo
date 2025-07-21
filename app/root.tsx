@@ -43,42 +43,31 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-const onRedirectCallback = (appState?: { returnTo?: string }) => {
-  // Use window.location for navigation since we're in browser context
-  const returnTo =
-    appState?.returnTo ||
-    (typeof window !== "undefined" ? window.location.pathname : "/");
-  if (typeof window !== "undefined") {
-    window.location.href = returnTo;
-  }
-};
-
-const config = getConfig();
-
-const providerConfig = {
-  domain: config.domain,
-  clientId: config.clientId,
-  onRedirectCallback,
-  // Configure session management for persistent authentication
-  cacheLocation: "localstorage", // Use localStorage to persist tokens across page refreshes
-  useRefreshTokens: true, // Enable refresh tokens for secure session management
-  useRefreshTokensFallback: true, // Allow fallback to localStorage if needed
-
-  authorizationParams: {
-    redirect_uri:
-      typeof window !== "undefined"
-        ? window.location.origin
-        : "http://localhost:3000",
-    ...(config.audience ? { audience: config.audience } : null),
-  },
-  // Additional configuration for better session handling
-  skipRedirectCallback:
-    typeof window !== "undefined"
-      ? window.location.pathname === "/oidc-callback"
-      : false,
-} as any;
-
 export default function App() {
+  const onRedirectCallback = (appState?: { returnTo?: string }) => {
+    const returnTo = appState?.returnTo || window.location.pathname;
+    window.location.href = returnTo;
+  };
+
+  const config = getConfig();
+
+  const providerConfig = {
+    domain: config.domain,
+    clientId: config.clientId,
+    onRedirectCallback,
+    // Configure session management for persistent authentication
+    cacheLocation: "localstorage", // Use localStorage to persist tokens across page refreshes
+    useRefreshTokens: true, // Enable refresh tokens for secure session management
+    useRefreshTokensFallback: true, // Allow fallback to localStorage if needed
+
+    authorizationParams: {
+      redirect_uri: window.location.origin,
+      ...(config.audience ? { audience: config.audience } : null),
+    },
+    // Additional configuration for better session handling
+    skipRedirectCallback: window.location.pathname === "/oidc-callback",
+  } as any;
+
   return (
     <Auth0Provider {...providerConfig}>
       <Outlet />
